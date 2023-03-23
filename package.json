@@ -1,0 +1,23 @@
+{
+  "name": "herald-cli",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "bin/herald-main.js",
+  "bin": {
+    "herald": "bin/herald-main.js"
+  },
+  "scripts": {
+    "install": "node lib/welcome.js"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "boxen": "^7.0.2",
+    "chalk": "^5.2.0",
+    "shelljs": "^0.8.5"
+  }
+}
