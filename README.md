@@ -12,3 +12,9 @@
 Next steps:
 
 Implement deployment process
+
+Update:
+
+App deployment and destroy commands implemented.
+
+Still need to configure user options: VPC, initial cluster size etc.

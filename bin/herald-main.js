@@ -12,13 +12,13 @@ switch (command) {
     init();
     break;
   case 'deploy':
-    deploy(process.argv);
+    deploy();
     break;
   case 'help':
     help();
     break;
   case 'destroy':
-    destroy(process.argv);
+    destroy();
     break;
   default:
     console.log(errorMsg);
