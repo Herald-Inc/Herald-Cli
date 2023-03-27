@@ -6,22 +6,23 @@ import CONSTANTS from '../lib/constants.js';
 const { APP_NAME, REPO, KEY_PATH, KEY_NAME, COMMANDS, APP_DEPENDENCIES } = CONSTANTS;
 
 const deployBoxOptions = {
-  padding: 1,
-  margin: 2,
-  borderStyle: "round",
+  padding: 0.8,
+  margin: {top: 2, bottom: 1, left: 4},
+  borderStyle: "single",
   borderColor: "cyan",
+  dimBorder: true,
 }
 
 const deployMsg = chalk.white("herald deploy");
 const msgBox = boxen(deployMsg, deployBoxOptions);
 
-const options = { stdio: "pipe", silent: true };
+const options = { silent: true };
 
-async function generateKey() {
+function generateKey() {
   let res;
   try {
     console.log(chalk.white("Generating SSH key..."));
-    res = sh.exec(`${COMMANDS.CREATE_KEY} ${KEY_NAME}`, options);
+    // res = sh.exec(`${COMMANDS.CREATE_KEY} ${KEY_NAME}`, options);
     console.log(chalk.green("Key generated!"));
   } catch (error) {
     console.error(
@@ -32,9 +33,9 @@ async function generateKey() {
   }
 
   try {
-    const key = JSON.parse(res).KeyMaterial;
+    // const key = JSON.parse(res).KeyMaterial;
     console.log(chalk.white(`Writing SSH key to ${KEY_PATH}...`));
-    writeFileSync(KEY_PATH, key);
+    // writeFileSync(KEY_PATH, key);
   } catch (error) {
     console.error(
       chalk.red("Failed to write key to file. Please see error below:", "red")
@@ -44,10 +45,10 @@ async function generateKey() {
   }
 }
 
-async function clone(repo) {
+function clone(repo) {
   try {
     console.log(chalk.white(`Cloning the app from GitHub into ${APP_NAME} directory...`))
-    sh.exec(`git clone ${repo} ${APP_NAME}`, options);
+    // sh.exec(`git clone ${repo} ${APP_NAME}`, options);
     console.log(chalk.green("Cloning Completed!"));
   } catch (error) {
     console.error(chalk.red("Clone failed. Please see error below: "));
@@ -56,12 +57,12 @@ async function clone(repo) {
   }
 }
 
-async function installDependencies() {
+function installDependencies() {
   sh.cd(APP_NAME);
 
   try {
     console.log(chalk.white("Installing CDK app dependencies..."));
-    sh.exec("npm install", options);
+    // sh.exec("npm install", options);
     console.log(chalk.green("Installation Completed!"));
   } catch (error) {
     console.error(chalk.red("Failed to install dependencies. Please see error below:"));
@@ -70,7 +71,7 @@ async function installDependencies() {
   }
 }
 
-async function verifyInstall(args) {
+function verifyInstall(args) {
   args.forEach(arg => {
     try {
       sh.exec(`${arg} --version`, options);
@@ -85,16 +86,16 @@ export default async function init() {
 
   try {
     console.log(chalk.white("Verifying AWS CLI and AWS CDK are installed on your machine..."));
-    await verifyInstall(APP_DEPENDENCIES);
+    verifyInstall(APP_DEPENDENCIES);
     console.log(chalk.green("Installation Verified!"));
   } catch (error) {
     console.error(error);
   }
 
   try {
-    await clone(REPO);
-    await installDependencies()
-    await generateKey();
+    clone(REPO);
+    installDependencies()
+    generateKey();
     console.log(
       chalk.greenBright("\nHerald initialization complete!\n\n") + 
       chalk.white("To deploy Herald to aws, use:") +
