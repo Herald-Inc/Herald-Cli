@@ -22,7 +22,7 @@ function generateKey() {
   let res;
   try {
     console.log(chalk.white("Generating SSH key..."));
-    // res = sh.exec(`${COMMANDS.CREATE_KEY} ${KEY_NAME}`, options);
+    res = sh.exec(`${COMMANDS.CREATE_KEY} ${KEY_NAME}`, options);
     console.log(chalk.green("Key generated!"));
   } catch (error) {
     console.error(
@@ -33,9 +33,9 @@ function generateKey() {
   }
 
   try {
-    // const key = JSON.parse(res).KeyMaterial;
+    const key = JSON.parse(res).KeyMaterial;
     console.log(chalk.white(`Writing SSH key to ${KEY_PATH}...`));
-    // writeFileSync(KEY_PATH, key);
+    writeFileSync(KEY_PATH, key);
   } catch (error) {
     console.error(
       chalk.red("Failed to write key to file. Please see error below:", "red")
@@ -48,7 +48,7 @@ function generateKey() {
 function clone(repo) {
   try {
     console.log(chalk.white(`Cloning the app from GitHub into ${APP_NAME} directory...`))
-    // sh.exec(`git clone ${repo} ${APP_NAME}`, options);
+    sh.exec(`git clone ${repo} ${APP_NAME}`, options);
     console.log(chalk.green("Cloning Completed!"));
   } catch (error) {
     console.error(chalk.red("Clone failed. Please see error below: "));
@@ -62,7 +62,7 @@ function installDependencies() {
 
   try {
     console.log(chalk.white("Installing CDK app dependencies..."));
-    // sh.exec("npm install", options);
+    sh.exec("npm install", options);
     console.log(chalk.green("Installation Completed!"));
   } catch (error) {
     console.error(chalk.red("Failed to install dependencies. Please see error below:"));
@@ -100,7 +100,6 @@ export default async function init() {
       chalk.greenBright("\nHerald initialization complete!\n\n") + 
       chalk.white("To deploy Herald to aws, use:") +
       msgBox
-      // chalk.cyan("'herald deploy'\n\n") // might like this better than msgBox
     );
   } catch (error) {
     console.error(error);
