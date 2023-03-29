@@ -11,7 +11,7 @@ export default async function destroy() {
       {
         type: "confirm",
         name: "delete",
-        message: "Would you like to proceed with deleting Herald from your AWS account?"
+        message: "Would you like to proceed with Herald's deletion?"
       }
     ])
     if (confirm.delete) {
