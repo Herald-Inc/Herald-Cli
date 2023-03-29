@@ -1,20 +1,33 @@
 # README #
 
-### Current State
+# Installation
+---
+```
+$ npm i -g herald-cli
+```
 
-- clone repo
-- npm install -g . in root directory
-- run 'herald init'
-  - verifies aws and cdk installation
-  - clones herald app into current directory
-  - generates ssh key
+# Getting Started
+---
 
-Next steps:
+To initialize Herald and ensure you're environment is ready for deployment, run:
 
-Implement deployment process
+```
+herald init
+```
 
-Update:
+# Deploying to AWS
+---
+ Once Herald has been initialized, it is ready to be deployed to AWS. Run:
 
-App deployment and destroy commands implemented.
+ ```
+ herald deploy
+ ```
 
-Still need to configure user options: VPC, initial cluster size etc.
+ # Tearing down Herald
+ ---
+
+ To destroy any evidence of Herald from AWS, run:
+
+ ```
+ herald destroy
+ ```
