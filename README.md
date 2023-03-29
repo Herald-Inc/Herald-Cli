@@ -12,19 +12,19 @@ $ npm i -g herald-cli
 To initialize Herald and ensure you're environment is ready for deployment, run:
 
 ```
-herald init
+$ herald init
 ```
 
 ### Deploying to AWS
  Once Herald has been initialized, it is ready to be deployed to AWS. Run:
 
  ```
- herald deploy
+ $ herald deploy
  ```
 
  ### Tearing down Herald
  To destroy any evidence of Herald from AWS, run:
 
  ```
- herald destroy
+ $ herald destroy
  ```
