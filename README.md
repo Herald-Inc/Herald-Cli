@@ -1,9 +1,15 @@
 # README #
 
-# Note
-Herald has not yet been published to npm. To use the cli, clone the repo and skip the installation step.
-
 ### Installation
+Herald has not yet been published to npm. To use the cli, clone the repo and skip the installation step. For now, do this:
+
+Clone the repo and run this command in the root directory:
+
+```
+$ npm i -g .
+```
+
+**Not yet available**
 ```
 $ npm i -g herald-cli
 ```
