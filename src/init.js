@@ -2,108 +2,115 @@ import sh from 'shelljs';
 import { writeFileSync } from "fs";
 import chalk from 'chalk';
 import boxen from 'boxen';
+import Spinner from '../lib/spinner.js';
+import { promisify } from "util";
+const exec = promisify(sh.exec);
+
 import CONSTANTS from '../lib/constants.js';
 const { APP_NAME, REPO, KEY_PATH, KEY_NAME, COMMANDS, APP_DEPENDENCIES } = CONSTANTS;
 
 const deployBoxOptions = {
-  padding: 0.8,
-  margin: {top: 2, bottom: 1, left: 4},
-  borderStyle: "single",
+  padding: 0.9,
+  margin: {top: 1, bottom: 1, left: 4},
+  borderStyle: "round",
   borderColor: "cyan",
   dimBorder: true,
 }
 
-const deployMsg = chalk.white("herald deploy");
+const deployMsg = chalk.cyanBright("herald deploy");
 const deployBox = boxen(deployMsg, deployBoxOptions);
-// const initMsg = chalk.white("\nInitialization Complete --> Herald is now ready for deployment!\n\n");
-// const initBox = boxen(initMsg, initOptions);
 
 const options = { silent: true };
 
-function generateKey() {
-  let res;
+const spinner = new Spinner(
+  "Herald initialization:"
+);
+
+async function validateDependencies() {
+  for (let dependency of APP_DEPENDENCIES) {
+    try {
+      await exec(`${dependency} --version`, options);
+    } catch (error) {
+      spinner.fail(`${dependency}-cli was not found. Please install and try again.`);
+      process.exit();
+    }
+  }
+}
+
+async function cloneRepo() {
   try {
-    console.log(chalk.white("Generating SSH key..."));
-    res = sh.exec(`${COMMANDS.CREATE_KEY} ${KEY_NAME}`, options);
-    console.log(chalk.cyan("Success --> Key generated"));
+    await exec(`git clone ${REPO} ${APP_NAME}`, options);
   } catch (error) {
-    console.error(
-      chalk.red("Failed to create SSH key. Please see error below:")
-    );
-    console.error(error);
+    spinner.fail(chalk.red(error));
+    process.exit();
+  }
+}
+
+async function installAppDependencies() {
+  try {
+    sh.cd(APP_NAME);
+    await exec("npm install", options);
+  } catch (error) {
+    spinner.fail(chalk.red(error));
+    process.exit();
+  }
+}
+
+async function generateSSHKey() {
+  let key;
+
+  try {
+    const res = await exec(`${COMMANDS.CREATE_KEY} ${KEY_NAME}`, options);
+    key = JSON.parse(res).KeyMaterial;  
+  } catch (error) {
+    spinner.fail(chalk.red(error));
     process.exit();
   }
 
+  return key;
+}
+
+async function writeKeyToAppDir(key) {
   try {
-    const key = JSON.parse(res).KeyMaterial;
-    console.log(chalk.white(`Writing SSH key to ${KEY_PATH}...`));
     writeFileSync(KEY_PATH, key);
   } catch (error) {
-    console.error(
-      chalk.red("Failed to write key to file. Please see error below:", "red")
-    );
-    console.error(error);
+    spinner.fail(chalk.red(error));
     process.exit();
   }
-}
-
-function clone(repo) {
-  try {
-    console.log(chalk.white(`Cloning the app from GitHub into ${APP_NAME} directory...`))
-    sh.exec(`git clone ${repo} ${APP_NAME}`, options);
-    console.log(chalk.cyan("Success --> Repo cloned"));
-  } catch (error) {
-    console.error(chalk.red("Clone failed. Please see error below: "));
-    console.error(error);
-    process.exit();
-  }
-}
-
-function installDependencies() {
-  sh.cd(APP_NAME);
-
-  try {
-    console.log(chalk.white("Installing CDK app dependencies..."));
-    sh.exec("npm install", options);
-    console.log(chalk.cyan("Success --> Dependencies installed"));
-  } catch (error) {
-    console.error(chalk.red("Failed to install dependencies. Please see error below:"));
-    console.error(error);
-    process.exit();
-  }
-}
-
-function verifyInstall(args) {
-  args.forEach(arg => {
-    try {
-      sh.exec(`${arg} --version`, options);
-    } catch (error) {
-      console.error(`"${arg}" command is not available. Please install "${arg}" globally to use Herald CLI`);
-    }
-  });
 }
 
 export default async function init() {
-  console.clear();
-
   try {
-    console.log(chalk.white("Verifying AWS CLI, AWS CDK and Git are installed on your machine..."));
-    verifyInstall(APP_DEPENDENCIES);
-    console.log(chalk.cyan("Success --> CLI installations verified"));
+    spinner.update("checking for cli dependencies...");
+    spinner.start();
+    await validateDependencies();
+    spinner.succeed(chalk.cyan("CLI dependencies verified"));
+
+    spinner.update(`Cloning the app from GitHub into ${APP_NAME} directory...`);
+    spinner.start();
+    await cloneRepo();
+    spinner.succeed(chalk.cyan(`Herald cloned into ${APP_NAME} directory`));
+
+    spinner.update("Installing CDK app dependencies...");
+    spinner.start();
+    await installAppDependencies();
+    spinner.succeed(chalk.cyan("App dependencies installed"));
+
+    spinner.update("Generating SSH key...");
+    spinner.start();
+    const key = await generateSSHKey();
+    spinner.succeed(chalk.cyan("SSH key generated"));
+
+    spinner.update(`Writing SSH key to ${KEY_PATH}...`);
+    spinner.start();
+    await writeKeyToAppDir(key);
+    spinner.succeed(chalk.cyan(`SSH key written to ${KEY_PATH} in herald-app`));
   } catch (error) {
-    console.error(error);
+    spinner.fail(chalk.red(error));
+    process.exit(1);
   }
 
-  try {
-    clone(REPO);
-    installDependencies()
-    generateKey();
-    console.log(
-      chalk.green("\nInitialization Complete --> Herald is now ready for deployment!\n\n") + 
-      chalk.white("To deploy Herald to aws, use:") +
-      deployBox
-    );
-  } catch (error) {
-    console.error(error);
-  }
+  spinner.succeed(chalk.cyanBright("Initialization Complete: Herald is ready for deployment!\n"))
+  console.log(chalk.white("To deploy Herald to aws, use:"));
+  console.log(deployBox);
 }
