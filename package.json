@@ -1,7 +1,13 @@
 {
-  "name": "herald-cli",
+  "name": "@herald-cli/herald-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "The Herald Bootstrapping CLI",
+  "contributors": [
+    "Stephen Johnston",
+    "Kowshik Islam",
+    "Matthew Johnston",
+    "Wayne Olson"
+  ],
   "type": "module",
   "main": "bin/herald-main.js",
   "bin": {
@@ -11,9 +17,10 @@
     "install": "node lib/welcome.js"
   },
   "keywords": [
-    "cli"
+    "cli",
+    "elk",
+    "observability"
   ],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "boxen": "^7.0.2",
@@ -22,5 +29,9 @@
     "inquirer": "^9.1.5",
     "ora": "^6.3.0",
     "shelljs": "^0.8.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Herald-Inc/Herald-Cli.git"
   }
 }
