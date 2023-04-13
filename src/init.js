@@ -80,6 +80,8 @@ async function writeKeyToAppDir(key) {
 }
 
 export default async function init() {
+  spinner.start();
+  
   try {
     spinner.update("checking for cli dependencies...");
     spinner.start();

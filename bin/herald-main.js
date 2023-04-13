@@ -1,59 +1,23 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk';
+import { program } from 'commander';
 import { init, deploy, destroy } from '../src/main.js';
 
-const errorMsg = chalk.white("command not found. Try ") + chalk.cyan("'herald help'")
+program.version('1.0.0');
 
-const commands = {
-  init,
-  deploy,
-  destroy,
-};
+program
+  .command('init')
+  .description('Initialize Herald for deployment')
+  .action(init);
 
-const [node, script, command] = process.argv;
+program
+  .command('deploy')
+  .description('Deploy Herald to AWS')
+  .action(deploy);
 
-if (commands[command]) {
-  commands[command]();
-} else {
-  console.log(errorMsg);
-}
+program
+  .command('destroy')
+  .description('Delete Herald from AWS')
+  .action(destroy);
 
-// switch (command) {
-//   case 'init':
-//     init();
-//     break;
-//   case 'deploy':
-//     deploy();
-//     break;
-//   case 'help':
-//     help();
-//     break;
-//   case 'destroy':
-//     destroy();
-//     break;
-//   default:
-//     console.log(errorMsg);
-// }
-
-
-// import { program } from 'commander';
-
-// program.version('1.0.0');
-
-// program
-//   .command('init')
-//   .description('Initialize your app for deployment')
-//   .action(init);
-
-// program
-//   .command('deploy')
-//   .description('Deploy your app to AWS')
-//   .action(deploy);
-
-// program
-//   .command('destroy')
-//   .description('Destroy your app on AWS')
-//   .action(destroy);
-
-// program.parse(process.argv);
+program.parse(process.argv);
