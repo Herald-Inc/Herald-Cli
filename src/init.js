@@ -83,7 +83,7 @@ export default async function init() {
   spinner.start();
   
   try {
-    spinner.update("checking for cli dependencies...");
+    spinner.update("Checking for cli dependencies...");
     spinner.start();
     await validateDependencies();
     spinner.succeed(chalk.cyan("CLI dependencies verified"));
@@ -113,6 +113,6 @@ export default async function init() {
   }
 
   spinner.succeed(chalk.cyanBright("Initialization Complete: Herald is ready for deployment!\n"))
-  console.log(chalk.white("To deploy Herald to aws, use:"));
+  console.log(chalk.white("To deploy Herald to aws:"));
   console.log(deployBox);
 }
