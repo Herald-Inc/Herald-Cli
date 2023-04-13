@@ -5,7 +5,7 @@ import { writeFileSync } from 'fs';
 import CONSTANTS from "../lib/constants.js";
 const { APP_NAME, CONFIG_PATH, COMMANDS } = CONSTANTS;
 
-const options = { stdio: "pipe", silent: true };
+const options = { silent: true };
 
 function vpcIdAndCidrObj(answer) {
   let [id, cidr] = answer.vpc.split(" -- ");
@@ -23,7 +23,6 @@ function getVPCIDs() {
 }
 
 export default async function deploy() {
-  console.clear();
   const vpcs = getVPCIDs();
   let answer;
 
@@ -53,7 +52,6 @@ export default async function deploy() {
       sh.cd(APP_NAME);
       writeFileSync(CONFIG_PATH, JSON.stringify(vpcIdAndCidrObj(answer)));
       sh.exec(COMMANDS.DEPLOY);
-      // console.log("cdk deploy");
     }
   } catch (error) {
     console.error(error);
