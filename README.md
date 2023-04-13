@@ -1,16 +1,9 @@
 # README #
 
 ### Installation
-Herald has not yet been published to npm. To use the cli, clone the repo and run 
-this command in the root directory:
 
 ```
-$ npm i -g .
-```
-
-**Not yet available**
-```
-$ npm i -g herald-cli
+$ npm install -g herald-cli
 ```
 
 ### Getting Started
@@ -34,7 +27,7 @@ $ herald init
  Select a VPC and confirm your choice.
 
  ### Tearing down Herald
- To destroy any evidence of Herald from AWS, run:
+ To delete Herald from AWS, run:
 
  ```
  $ herald destroy
