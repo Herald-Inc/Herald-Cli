@@ -113,6 +113,6 @@ export default async function init() {
   }
 
   spinner.succeed(chalk.cyanBright("Initialization Complete: Herald is ready for deployment!\n"))
-  console.log(chalk.white("To deploy Herald to aws:"));
+  console.log(chalk.white("To deploy Herald to aws, use:"));
   console.log(deployBox);
 }
