@@ -16,7 +16,7 @@ $ herald init
 ```
 
 ### Deploying to AWS
- Once Herald has been initialized, it is ready to be deployed to AWS. Run:
+ Once Herald has been initialized, it is ready to be deployed to AWS, run:
 
  ```
  $ herald deploy
