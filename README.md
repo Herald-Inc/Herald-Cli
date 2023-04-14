@@ -1,4 +1,4 @@
-# README #
+![herald-logo](https://github.com/Herald-Inc/Herald-Cli/blob/main/img/herald-logo.png)
 
 ### Installation
 
@@ -26,6 +26,7 @@ $ herald init
  
  Select a VPC and confirm your choice.
 
+**Note:** The deployment can take upwards of 40 minutes.
  ### Tearing down Herald
  To delete Herald from AWS, run:
 
