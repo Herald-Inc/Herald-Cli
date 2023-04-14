@@ -1,7 +1,7 @@
 ![herald-logo](https://github.com/Herald-Inc/Herald-Cli/blob/main/img/herald-logo.png)
 
+![shields.io](https://img.shields.io/badge/npm-v1.0.13-blue)
 ![shields.io npm license badge](https://img.shields.io/badge/license-ISC-brightgreen)
-![shields.io](https://img.shields.io/badge/npm-v1.0.13-brightgreen)
 
 # Installation
 
