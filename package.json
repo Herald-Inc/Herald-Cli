@@ -1,13 +1,13 @@
 {
   "name": "herald-cli",
-  "version": "1.0.6",
+  "version": "1.0.13",
   "description": "The Herald Bootstrapping CLI",
   "type": "module",
   "bin": {
     "herald": "bin/herald-main.js"
   },
   "scripts": {
-    "install": "node lib/welcome.js"
+    "postinstall": "node lib/welcome.js"
   },
   "keywords": [
     "cli",
