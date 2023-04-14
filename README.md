@@ -1,12 +1,14 @@
 ![herald-logo](https://github.com/Herald-Inc/Herald-Cli/blob/main/img/herald-logo.png)
 
-### Installation
+
+
+# Installation
 
 ```
 $ npm install -g herald-cli
 ```
 
-### Getting Started
+## Getting Started
 To complete initialization successfully, the user must have aws-cli, aws-cdk and git-cli installed.
 
 To initialize Herald and ensure you're environment is ready for deployment, run:
@@ -15,7 +17,7 @@ To initialize Herald and ensure you're environment is ready for deployment, run:
 $ herald init
 ```
 
-### Deploying to AWS
+## Deploying to AWS
  Once Herald has been initialized, it is ready to be deployed to AWS, run:
 
  ```
@@ -27,7 +29,7 @@ $ herald init
  Select a VPC and confirm your choice.
 
 **Note:** The deployment can take upwards of 40 minutes.
- ### Tearing down Herald
+ ## Tearing down Herald
  To delete Herald from AWS, run:
 
  ```
