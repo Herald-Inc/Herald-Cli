@@ -1,14 +1,7 @@
-![herald-logo](https://github.com/Herald-Inc/Herald-Cli/blob/main/img/herald-logo.png)  
-  
-  
-  
-  
+![herald-logo](https://github.com/Herald-Inc/Herald-Cli/blob/main/img/herald-logo.png)
 
-![shields.io npm license badge](https://img.shields.io/badge/license-ISC-brightgreen)  
-  
-  
-  
-  
+![shields.io npm license badge](https://img.shields.io/badge/license-ISC-brightgreen)
+
 # Installation
 
 ```
@@ -25,13 +18,13 @@ $ herald init
 ```
 
 ## Deploying to AWS
- Once Herald has been initialized, it is ready to be deployed to AWS, run:
+ Once Herald has been initialized, it is ready to be deployed to AWS:
 
  ```
  $ herald deploy
  ```
 
- The user will be prompted for the VPC they wish to deploy Herald to.
+ The user will be prompted to select the VPC they wish to deploy Herald to.
  
  Select a VPC and confirm your choice.
 
