@@ -3,8 +3,6 @@
 import { program } from 'commander';
 import { init, deploy, destroy } from '../src/main.js';
 
-program.version('1.0.0');
-
 program
   .command('init')
   .description('Initialize Herald for deployment')
