@@ -12,7 +12,7 @@ $ npm install -g herald-cli
 ## Getting Started
 To complete initialization successfully, the user must have aws-cli, aws-cdk and git-cli installed.
 
-To initialize Herald and ensure you're environment is ready for deployment, run:
+To initialize Herald and ensure your environment is ready for deployment, run:
 
 ```
 $ herald init
