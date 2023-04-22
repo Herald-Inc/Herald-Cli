@@ -116,3 +116,5 @@ export default async function init() {
   console.log(chalk.white("To deploy Herald to aws, use:"));
   console.log(deployBox);
 }
+
+//
