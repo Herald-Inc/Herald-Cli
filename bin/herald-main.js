@@ -19,5 +19,3 @@ program
   .action(destroy);
 
 program.parse(process.argv);
-
-//
