@@ -33,7 +33,7 @@ Once Herald has been initialized, it is ready to be deployed to AWS:
 $ herald deploy
 ```
  
-Using the host machine's default AWS account, the Herald CLI will pull a list of all existing VPCs from the that AWS account, after which the user will be prompted to select the VPC into which they wish to deploy Herald. In order for the user's application to communicate with Herald without additional configuration, Herald must be deployed into the same VPC as the user's application.
+Using the host machine's default AWS account, the Herald CLI will pull a list of all existing VPCs from that AWS account, after which the user will be prompted to select the VPC into which they wish to deploy Herald. In order for the user's application to communicate with Herald without additional configuration, Herald must be deployed into the same VPC as the user's application.
  
 Select a VPC and confirm your choice.
 
