@@ -15,6 +15,8 @@
 $ npm install -g herald-cli
 ```
 
+Herald is installed globally using the command above.
+
 ## Getting Started
 To complete initialization successfully, the user must have aws-cli, aws-cdk and git-cli installed.
 
@@ -45,3 +47,5 @@ To delete Herald from AWS, run:
 ```
 $ herald destroy
 ```
+**Note:** The removal of Herald can take upwards of 40 minutes.
+
